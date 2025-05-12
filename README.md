@@ -3,8 +3,8 @@
 The official implementation of CVPR 2025 paper [Steepest Descent Density Control for Compact 3D Gaussian Splatting
 ](https://arxiv.org/abs/2505.05587)
 
-[Peihao Wang](https://peihaowang.github.io/)<sup>1</sup>,
-[Yuehao Wang](https://yuehaolab.com/)<sup>1</sup>,
+[Peihao Wang*](https://peihaowang.github.io/)<sup>1</sup>,
+[Yuehao Wang*](https://yuehaolab.com/)<sup>1</sup>,
 [Dilin Wang](https://wdilin.github.io/)<sup>2</sup>,
 [Sreyas Mohan](https://sreyas-mohan.github.io/)<sup>2</sup>,
 [Zhiwen Fan](https://zhiwenfan.github.io/)<sup>1</sup>,
@@ -17,8 +17,9 @@ The official implementation of CVPR 2025 paper [Steepest Descent Density Control
 
 <sup>1</sup>University of Texas at Austin, <sup>2</sup>Meta Reality Labs
 
-[Project Page](https://vita-group.github.io/SteepGS/) | [Paper](https://arxiv.org/abs/2505.05587) | [Code](https://github.com/facebookresearch/SteepGS)
+<sup>*</sup> denotes equal contribution.
 
+[Project Page](https://vita-group.github.io/SteepGS/) | [Paper](https://arxiv.org/abs/2505.05587) | [Code](https://github.com/facebookresearch/SteepGS)
 
 This repository is built based on the [official repository of 3DGS](https://github.com/graphdeco-inria/gaussian-splatting).
 
@@ -94,7 +95,6 @@ SteepGS inherits all training hyper-parameters from original 3DGS, listed [here]
 If you find our repository helpful, please cite our work using the following BibTex.
 
 ```
-
 @inproceedings{wang2025steepgs,
   title={Steepest Descent Density Control for Compact 3D Gaussian Splatting},
   author={Wang, Peihao and Wang, Yuehao and Wang, Dilin and Mohan, Sreyas and Fan, Zhiwen and Wu, Lemeng and Cai, Ruisi and Yeh, Yu-Ying and Wang, Zhangyang and Liu, Qiang and Ranjan, Rakesh},
