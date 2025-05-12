@@ -1,5 +1,8 @@
 # Steepest 3D Gaussian Splatting for Compact Radiance Field
 
+The official implementation of CVPR 2025 paper [Steepest Descent Density Control for Compact 3D Gaussian Splatting
+](https://arxiv.org/abs/2505.05587)
+
 [Peihao Wang](https://peihaowang.github.io/)<sup>1</sup>,
 [Yuehao Wang](https://yuehaolab.com/)<sup>1</sup>,
 [Dilin Wang](https://wdilin.github.io/)<sup>2</sup>,
@@ -14,13 +17,8 @@
 
 <sup>1</sup>University of Texas at Austin, <sup>2</sup>Meta Reality Labs
 
-[Project Page](https://vita-group.github.io/SteepGS/)
-[Paper](https://arxiv.org/abs/2505.05587)
-[Code](https://github.com/facebookresearch/SteepGS)
+[Project Page](https://vita-group.github.io/SteepGS/) | [Paper](https://arxiv.org/abs/2505.05587) | [Code](https://github.com/facebookresearch/SteepGS)
 
-
-The official implementation of CVPR 2025 paper [Steepest Descent Density Control for Compact 3D Gaussian Splatting
-](https://arxiv.org/abs/2505.05587)
 
 This repository is built based on the [official repository of 3DGS](https://github.com/graphdeco-inria/gaussian-splatting).
 
