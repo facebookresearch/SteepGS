@@ -23,6 +23,11 @@ The official implementation of CVPR 2025 paper [Steepest Descent Density Control
 
 This repository is built based on the [official repository of 3DGS](https://github.com/graphdeco-inria/gaussian-splatting).
 
+![](assets/teaser.png)
+
+We theoretically investigate density control in 3DGS. As training via gradient descent progresses, many Gaussian primitives are observed to become stationary while failing to reconstruct the regions they cover (e.g. the cyan-colored blobs in the top-left figure marked with 🧊). From an optimization-theoretic perspective (see figure on the right), we reveal that these primitives are trapped in saddle points, the regions in the loss landscape where *gradients* are insufficient to further reduce loss, leaving parameters sub-optimal locally. To address this, we introduce **SteepGS**, which efficiently identifies Gaussian points located in saddle area, splits them into two off-springs, and displaces new primitives along the *steepest descent directions*. This restores the effectiveness of successive gradient-based updates by escaping the saddle area (e.g. the orange-colored blobs in the top-left figure marked with 🔥 become optimizable after densification). As shown in the
+bottom-left visualization, SteepGS achieves a more compact parameterization while preserving the fidelity of fine geometric details.
+
 ## Get Started
 
 ### Cloning the Repository
