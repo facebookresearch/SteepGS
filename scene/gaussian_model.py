@@ -651,6 +651,9 @@ class GaussianModel:
         elif self.xyz_grad_estimator == 'ema':
             self.xyz_gradient_accum[update_filter] = self.xyz_grad_ema_ratio * self.get_xyz.grad[update_filter] + (1. - self.xyz_grad_ema_ratio) * self.xyz_gradient_accum[update_filter]
 
+        else:
+            raise NotImplementedError(f"`{self.xyz_grad_estimator}` estimator for gradient is not supported in this implementation.")
+
         if self.S_estimator == 'partial' or self.S_estimator == 'approx':
             ## Partial estimator
             self.xyz_splitting_mat_accum[update_filter] += splitting_mats.grad[update_filter]
