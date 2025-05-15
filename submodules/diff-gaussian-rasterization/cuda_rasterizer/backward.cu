@@ -430,7 +430,7 @@ __global__ void preprocessCUDA(
 	// Compute splitting matrices
 	if (splitting_mats)
 	{
-		if (S_estimator == CudaRasterizer::QuasiNewton)
+		if (S_estimator == CudaRasterizer::InverseCov)
 		{
 			// dG/du
 			splitting_mats[idx][1][0] = (proj[0] * m_w - proj[3] * mul1) * splitting_mats[idx][0][1] + (proj[1] * m_w - proj[3] * mul2) * splitting_mats[idx][0][2];
@@ -627,7 +627,7 @@ renderCUDA(
 			// Update gradients w.r.t. opacity of the Gaussian
 			atomicAdd(&(dL_dopacity[global_id]), G * dL_dalpha);
 
-			if (S_estimator == CudaRasterizer::QuasiNewton)
+			if (S_estimator == CudaRasterizer::InverseCov)
 			{
 				// dL/dG
 				atomicAdd(&(splitting_mat[global_id][0][0]), dL_dG);

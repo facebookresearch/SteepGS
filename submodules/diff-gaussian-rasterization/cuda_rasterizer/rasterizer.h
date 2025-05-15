@@ -20,7 +20,7 @@
 namespace CudaRasterizer
 {
 
-	enum SplittingEstimator { Partial = 0, Approx = 1, QuasiNewton = 2 };
+	enum SplittingEstimator { Partial = 0, Approx = 1, InverseCov = 2 };
 
 	class Rasterizer
 	{

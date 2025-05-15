@@ -60,12 +60,6 @@ class GaussianModel:
         # self.cov_feat_gradient_accum = torch.empty(0)
         self.S_estimator = 'partial'
         self.xyz_splitting_mat_accum = torch.empty(0)
-        if self.S_estimator == 'quasi_nt':
-            self.xyz_prev = torch.empty(0)
-            self.xyz_dG_prev = torch.empty(0)
-            self.xyz_d2G_prev = torch.empty(0)
-            self.xyz_dG_diff_prev = torch.empty(0)
-            self.xyz_diff_prev = torch.empty(0)
         self.denom = torch.empty(0)
         self.optimizer = None
         self.percent_dense = 0
@@ -183,18 +177,8 @@ class GaussianModel:
         self.xyz_grad_estimator = training_args.xyz_grad_estimator
         self.percent_dense = training_args.percent_dense
         self.xyz_gradient_norm_accum = torch.zeros((self.get_xyz.shape[0], 1), device="cuda")
-        # self.xyz_gradient3d_norm_accum = torch.zeros((self.get_xyz.shape[0], 1), device="cuda")
         self.xyz_gradient_accum = torch.zeros((self.get_xyz.shape[0], 3), device="cuda")
-        # self.cov_feat_gradient_accum = torch.zeros((self.get_xyz.shape[0], self.get_opacity.shape[1] + self.get_scaling.shape[1] + \
-        #                                             self.get_rotation.shape[1] + self._features_dc.reshape(self.get_xyz.shape[0], -1).shape[1] + \
-        #                                             self._features_rest.reshape(self.get_xyz.shape[0], -1).shape[1]), device='cuda')
         self.xyz_splitting_mat_accum = torch.zeros((self.get_xyz.shape[0], 3, 3), device="cuda")
-        if self.S_estimator == 'quasi_nt':
-            self.xyz_prev = self.get_xyz.clone()
-            self.xyz_dG_prev = torch.randn((self.get_xyz.shape[0], 3), device='cuda')
-            self.xyz_d2G_prev = 0.1 * torch.eye(3).unsqueeze(0).repeat(self.get_xyz.shape[0], 1, 1).to(device="cuda")
-            self.xyz_dG_diff_prev = 1e-6 * torch.ones((self.get_xyz.shape[0], 3), device='cuda')
-            self.xyz_diff_prev = 1e-6 * torch.ones((self.get_xyz.shape[0], 3), device='cuda')
         
         self.denom = torch.zeros((self.get_xyz.shape[0], 1), device="cuda")
 
@@ -358,13 +342,6 @@ class GaussianModel:
         # self.cov_feat_gradient_accum = self.cov_feat_gradient_accum[valid_points_mask]
         self.xyz_splitting_mat_accum = self.xyz_splitting_mat_accum[valid_points_mask]
 
-        if self.S_estimator == 'quasi_nt':
-            self.xyz_prev = self.get_xyz.clone()
-            self.xyz_dG_prev = self.xyz_dG_prev[valid_points_mask]
-            self.xyz_d2G_prev = self.xyz_d2G_prev[valid_points_mask]
-            self.xyz_dG_diff_prev = self.xyz_dG_diff_prev[valid_points_mask]
-            self.xyz_diff_prev = self.xyz_diff_prev[valid_points_mask]
-
         self.denom = self.denom[valid_points_mask]
         self.max_radii2D = self.max_radii2D[valid_points_mask]
 
@@ -412,12 +389,6 @@ class GaussianModel:
         self.denom = torch.zeros((self.get_xyz.shape[0], 1), device="cuda")
         self.max_radii2D = torch.zeros((self.get_xyz.shape[0]), device="cuda")
 
-        if self.S_estimator == 'quasi_nt':
-            self.xyz_prev = self.get_xyz.clone()
-            self.xyz_dG_prev = torch.concat([self.xyz_dG_prev, torch.zeros_like(new_xyz)], dim=0)
-            self.xyz_d2G_prev = torch.concat([self.xyz_d2G_prev, 0.1 * torch.eye(3).unsqueeze(0).repeat(new_xyz.shape[0], 1, 1).to(device="cuda")], dim=0)
-            self.xyz_dG_diff_prev = torch.concat([self.xyz_dG_diff_prev, 1e-6 * torch.ones_like(new_xyz)], dim=0)
-            self.xyz_diff_prev = torch.concat([self.xyz_diff_prev, 1e-6 * torch.ones_like(new_xyz)], dim=0)
 
     def densify_and_split(self, grads, grad_threshold, scene_extent, N=2):
         n_init_points = self.get_xyz.shape[0]
@@ -688,8 +659,8 @@ class GaussianModel:
             dL_dG = splitting_mats.grad[update_filter][:, 0, 0]
             self.xyz_splitting_mat_accum[update_filter] += dL_dG[:, None, None] * self.get_covariance_inv_matrix()[update_filter]
 
-        elif self.S_estimator == 'quasi_nt':
-            raise NotImplementedError("QuasiNetwon estimator is not supported in this implementation.")
+        else:
+            raise NotImplementedError(f"`{self.S_estimator}` estimator for splitting matrix is not supported in this implementation.")
 
         self.denom[update_filter] += 1
 

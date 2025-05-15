@@ -19,8 +19,7 @@ from utils.sh_utils import eval_sh
 SPLITTING_ESTIMATORS = {
     'partial': 0,
     'approx': 1,
-    'quasi_nt': 2,
-    'inv_cov': 2, # quasi_nt's output is a superset for inv_cov
+    'inv_cov': 2
 }
 
 def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor, scaling_modifier = 1.0, override_color = None):
