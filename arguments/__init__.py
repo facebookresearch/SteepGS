@@ -93,7 +93,7 @@ class OptimizationParams(ParamGroup):
         self.densify_grad_threshold = 0.0002
         self.densify_S_threshold = -1e-6
         self.densify_strategy = ['adc']
-        self.S_estimator = "inv_covar"
+        self.S_estimator = "inv_cov"
         self.xyz_grad_estimator = "mean"
         self.xyz_grad_ema_ratio = 0.5
         self.random_background = False
