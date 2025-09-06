@@ -83,15 +83,15 @@ The data downloading and processing are the same with the original 3DGS. Please 
 The simplest way to use and evaluate SteepGS is through the following commands:
 
 ```shell
-python train.py -s <path to COLMAP or NeRF Synthetic dataset> -m <path to checkpoint> --no_gui --density_strategy steepest  --eval # Train with train/test split
+python train.py -s <path to COLMAP or NeRF Synthetic dataset> -m <path to checkpoint> --no_gui --densitf_strategy steepest  --eval # Train with train/test split
 python render.py -m <path to trained model> # Generate renderings
 python metrics.py -m <path to trained model> # Compute error metrics on renderings
 ```
 
-SteepGS inherits all training hyper-parameters from original 3DGS, listed [here](https://github.com/graphdeco-inria/gaussian-splatting?tab=readme-ov-file#running) in details. In addition, SteepGS introduces a few arguments associated with the steepest density control strategy:
+SteepGS inherits all training hyper-parameters from original 3DGS, listed [here](https://github.com/graphdeco-inria/gaussian-splatting?tab=readme-ov-file#running) in detail. In addition, SteepGS introduces a few arguments associated with the steepest density control strategy:
 
-- `--densify_strategy`: The strategy adopted for density control. It can be `adc` to recover the default density control in 3DGS or `steepest` to enable our method. Users can also append attributes `stationary` to enable stationary gradient condition, `no_saddle`, `no_uncertain`, `no_eig_cond` to disable splitting conditions on saddle points, gradient uncertainty, or splitting matrices' eigenvalues, or `no_eig_upd` to disable adopting splitting matrices' principal eigenvectors as the update directions.
-- `--densify_S_threshold`: The threshold of splitting matrice's eigenvalues used to select Gaussian points to be split. It must be negative.
+- `--densify_strategy`: The strategy adopted for density control. It can be `adc` to recover the default density control in 3DGS or `steepest` to enable our method. Users can also append attributes `stationary` to enable a stationary gradient condition, `no_saddle`, `no_uncertain`, `no_eig_cond` to disable splitting conditions on saddle points, gradient uncertainty, or splitting matrices' eigenvalues, or `no_eig_upd` to disable adopting splitting matrices' principal eigenvectors as the update directions.
+- `--densify_S_threshold`: The threshold of splitting matrices' eigenvalues used to select Gaussian points to be split. It must be negative.
 - `--S_estimator`: The splitting matrix estimator. It can be `partial`, `approx`, or `inv_cov`. By default, `inv_cov` is chosen for its computational efficiency.
 
 
